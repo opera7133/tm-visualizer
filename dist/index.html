@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Turing</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="css/app.css" />
+    <script type="module" async src="js/app.js"></script>
+  </head>
+  <body>
+    <nav class="noselect">
+      <ul uk-tab="connect: #views .uk-switcher" style="margin: 0">
+        <li class="uk-active"><a href="#">Diagram</a></li>
+        <li><a href="#">Table</a></li>
+        <li><a href="#">Trace</a></li>
+        <li><a href="#">Examples</a></li>
+      </ul>
+      <div class="grow"></div>
+      <div class="uk-button-group">
+        <button data-action="load" class="uk-button">Load</button>
+        <button data-action="save" class="uk-button">Save</button>
+        <button data-action="edit" class="uk-button">Edit</button>
+        <button data-action="expt" class="uk-button">EXPT</button>
+        <button data-action="expd" class="uk-button">EXPD</button>
+      </div>
+    </nav>
+    <main class="grow">
+      <div id="views" class="grow">
+        <ul class="uk-switcher">
+          <li id="graph-view"></li>
+          <li id="table-view"></li>
+          <li id="trace-view">
+            <table
+              id="trace-view-table"
+              class="uk-table uk-width-auto uk-table-middle uk-table-divider uk-table-striped uk-table-hover uk-table-small"
+            >
+              <thead>
+                <tr>
+                  <th class="uk-table-shrink ctr" title="Step number">#</th>
+                  <th class="uk-table-shrink" title="Source state">State</th>
+                  <th class="uk-table-shrink ctr" title="Symbol under head">
+                    Head
+                  </th>
+                  <th class="uk-table-shrink ctr">Write</th>
+                  <th class="uk-table-shrink ctr">Move</th>
+                  <th class="uk-table-shrink ctr" title="Next state">Next</th>
+                  <th title="Current Tape State">Tape</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </li>
+          <li id="examples-view">
+            <ul uk-accordion>
+              <li>
+                <a class="uk-accordion-title" href>Unary multiplication by 2</a>
+                <div class="uk-accordion-content">
+                  <p>
+                    A machine that reads from the tape an integer in unary
+                    notation (n is represented by a list of n occurrences of the
+                    symbol 1) and writes it back doubled.
+                  </p>
+                  <p>
+                    <a
+                      href="?fetch=https%3A%2F%2Fraw.githubusercontent.com%2Ffbbdev%2Fturing%2Fmain%2Fexamples%2FunaryDup.txt"
+                      >Load in the simulator</a
+                    >
+                  </p>
+                  <p>
+                    <i>Instructions:</i> click the link above; when the machine
+                    has been loaded, click the tape head (the cell with a large
+                    black border), type <code>1</code> as many times as you
+                    like, press the <code>Enter</code> key and hit the play
+                    button.
+                  </p>
+                  <p>
+                    After the machine halts, if you hit the stop button, then
+                    the play button again it will duplicate again the latest
+                    result.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <a class="uk-accordion-title" href>Binary increment by one</a>
+                <div class="uk-accordion-content">
+                  <p>
+                    A machine that reads from the tape an integer in binary
+                    notation and writes it back incremented by one.
+                  </p>
+                  <p>
+                    <a
+                      href="?fetch=https%3A%2F%2Fraw.githubusercontent.com%2Ffbbdev%2Fturing%2Fmain%2Fexamples%2FbinaryIncr.txt"
+                      >Load in the simulator</a
+                    >
+                  </p>
+                  <p>
+                    <i>Instructions:</i> click the link above; when the machine
+                    has been loaded, click the tape head (the cell with a large
+                    black border), type a sequence of <code>1</code>s and
+                    <code>0</code>s, press the <code>Enter</code> key and hit
+                    the play button.
+                  </p>
+                  <p>
+                    After the machine halts, if you hit the stop button, then
+                    the play button again it will increment again the latest
+                    result.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <a class="uk-accordion-title" href>Binary addition</a>
+                <div class="uk-accordion-content">
+                  <p>
+                    A machine that reads from the tape two integers in binary
+                    notation, separated by a blank, and writes back their sum.
+                  </p>
+                  <p>
+                    <a
+                      href="?fetch=https%3A%2F%2Fraw.githubusercontent.com%2Ffbbdev%2Fturing%2Fmain%2Fexamples%2FbinaryAdd.txt"
+                      >Load in the simulator</a
+                    >
+                  </p>
+                  <p>
+                    <i>Instructions:</i> click the link above; when the machine
+                    has been loaded, click the tape head (the cell with a large
+                    black border), type a sequence of <code>1</code>s and
+                    <code>0</code>s, press <code>Space</code>, then type again a
+                    sequence of <code>1</code>s and <code>0</code>s, press the
+                    <code>Enter</code> key and hit the play button.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div id="editor">
+        <div class="outer-container">
+          <div class="inner-container">
+            <div class="highlights"></div>
+            <textarea spellcheck="false"></textarea>
+          </div>
+        </div>
+        <div class="error-container"></div>
+      </div>
+    </main>
+    <footer>
+      <div id="tape">
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr></tr>
+          </tbody>
+        </table>
+        <div class="head" contenteditable="true"></div>
+      </div>
+      <nav id="controls" class="noselect">
+        <div class="grow" style="text-align: left">
+          <a
+            href="#"
+            data-action="left"
+            class="uk-icon-link"
+            title="Move head one cell to the left"
+            ><i class="fa-solid fa-arrow-left"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="home"
+            class="uk-icon-link"
+            title="Return head to initial position"
+            ><i class="fa-solid fa-home"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="right"
+            class="uk-icon-link"
+            title="Move head one cell to the right"
+            ><i class="fa-solid fa-arrow-right"></i
+          ></a>
+        </div>
+        <div class="grow" style="text-align: center"></div>
+        <div class="grow" style="text-align: center">
+          <a
+            href="#"
+            data-action="backward"
+            class="uk-icon-link"
+            title="Step backward"
+            ><i class="fa-solid fa-backward-step"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="pause-resume"
+            class="uk-icon-link"
+            title="Pause/Resume execution"
+            ><i class="fa-solid fa-play"></i
+            ><i class="fa-solid fa-pause"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="stop"
+            class="uk-icon-link"
+            title="Reset to initial state and clear trace"
+            ><i class="fa-solid fa-stop"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="forward"
+            class="uk-icon-link"
+            title="Step forward"
+            ><i class="fa-solid fa-forward-step"></i
+          ></a>
+        </div>
+        <div class="grow" style="text-align: center"></div>
+        <div class="grow" style="text-align: right">
+          <select id="stepping-delay" title="Step every">
+            <option value="0">None</option>
+            <option value="50">50 ms</option>
+            <option value="100">100 ms</option>
+            <option value="250" selected>250 ms</option>
+            <option value="500">500 ms</option>
+            <option value="1000">1 s</option></select
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="clear"
+            class="uk-icon-link"
+            title="Clear tape"
+            ><i class="fa-solid fa-eraser"></i></a
+          >&nbsp;&nbsp;
+          <a
+            href="#"
+            data-action="reset"
+            class="uk-icon-link"
+            title="Reset to initial state, clear trace and tape and return head to initial position"
+            ><i class="fa-solid fa-arrow-rotate-left"></i></a
+          >&nbsp;&nbsp;
+        </div>
+      </nav>
+    </footer>
+  </body>
+</html>
