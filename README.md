@@ -1,4 +1,4 @@
-# Original
+# tm-visualizer
 
 https://github.com/fbbdev/turing
 
